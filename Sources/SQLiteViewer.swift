@@ -10,7 +10,7 @@ import HttpSwift
 import SQLite
 
 open class SQLiteViewer {
-    open static var shared = SQLiteViewer()
+    public static var shared = SQLiteViewer()
     
     public var assetDir: String = ""
     public var dbDir: String = "" {
