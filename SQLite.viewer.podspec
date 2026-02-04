@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
     s.source_files = 'Sources/*.swift'
     s.resource_bundles = { 'com.biatoms.sqlite-viewer.assets' => ['Sources/**/*.{js,css,ico,html}'] }
 
-    s.dependency 'Http.swift', '~> 2.1.1'
+    s.dependency 'Http.swift', '~> 2.2.1'
     s.dependency 'SQLite.swift', '>= 0.11.5'
 end
