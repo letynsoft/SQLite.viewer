@@ -7,7 +7,7 @@ target 'SQLiteViewer' do
   use_frameworks!
 
   # Pods for SQLiteViewer
-  pod 'Http.swift', '~> 2.1'
+  pod 'Http.swift', '~> 2.2.1'
   pod 'SQLite.swift', '~> 0.11.5'
 
   target 'SQLiteViewerTests' do
