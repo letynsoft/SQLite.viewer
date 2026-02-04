@@ -70,10 +70,19 @@ open class DatabaseController {
         func toArray<S: Sequence>(_ elements: S) -> Array<S.Element> { // resolves ambiguity
             return Array(elements)
         }
-        
+        var rows = toArray(statement)
+        if !JSONSerialization.isValidJSONObject(rows) {
+          for (rowIndex, row) in rows.enumerated() {
+            for (cellIndex, cell) in row.enumerated() {
+              if let cellBlob = cell as? SQLite.Blob {
+                rows[rowIndex][cellIndex] = Data(cellBlob.bytes).base64EncodedString()
+              }
+            }
+          }
+        }
         return [
             "columns": statement.columnNames,
-            "rows": toArray(statement)
+            "rows": rows
         ]
     }
 }
