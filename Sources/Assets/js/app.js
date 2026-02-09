@@ -104,7 +104,7 @@ function displayTable(data, tablename) {
     });
 }
 function escapeSqlite(string) {
-  return string.replace(/\'/g, '\'\'');
+  return (''+string).replace(/\'/g, '\'\'');
 }
 
 function executeQuery(query) {
