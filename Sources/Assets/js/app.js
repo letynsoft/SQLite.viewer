@@ -57,11 +57,11 @@ function refreshTableList() {
 function refreshTableData() {
     $('#table-data').empty();
     Api.getTableData(currentDatabase, currentTable, function (data) {
-        displayTable(data);
+        displayTable(data, currentTable);
     })
 }
 
-function displayTable(data) {
+function displayTable(data, tablename) {
     var elem = $('#table-data');
     elem.empty();
     var table = $('<table class="table"/>');
@@ -78,28 +78,51 @@ function displayTable(data) {
     data.rows.forEach(function (row) {
         var rowElem = $('<tr/>');
         tableBody.append(rowElem);
-        row.forEach(function (data) {
-            rowElem.append($('<td/>').text(data));
+        row.forEach(function (value, index) {
+            let origValue = value;
+            if (data.blobs.indexOf(index) !== -1 && value) {
+              value = 'blob: ' + value;
+            }
+            let cell = $('<td/>').append($('<span>').text(value ?? 'null'));
+            if (value == null) {
+              cell.addClass('is-null');
+            } else if (value?.length > 200) {
+              cell.addClass('is-long');
+            }
+            rowElem.append(cell);
+            if (tablename && data.columns[0] === 'Z_PK') {
+                // This is a CoreData helper
+                cell.append($('<a>').addClass('edit-item').text('edit').attr('href', '#').on('click', function(e) {
+                    $('#query').val('UPDATE '+tablename+' SET '+data.columns[index]+' = \''+escapeSqlite(origValue)+'\' WHERE '+data.columns[0]+' = \''+escapeSqlite(row[0])+'\'');
+                    message('SQL updated');
+                    e.preventDefault(true);
+                    e.stopPropagation(true);
+                    return false;
+                }));
+            }
         })
     });
 }
-
+function escapeSqlite(string) {
+  return string.replace(/\'/g, '\'\'');
+}
 
 function executeQuery(query) {
     Api.executeQuery(currentDatabase, query, function (data) {
         if (data.hasOwnProperty('affected_rows')) {
-            message(data.affected_rows + " rows are affected.");
+            message(data.affected_rows + ' rows are affected.');
         } else {
             displayTable(data);
-            message("Query completed.");
+            message('Query completed.');
         }
     });
 }
 
 function download() {
     Api.downloadDatabase(currentDatabase, function() {
-        message(currentDatabase + " is downloaded.")
+        message(currentDatabase + ' is downloaded.');
     });
 }
-
-init();
+$(document).ready(function () {
+  init();
+})

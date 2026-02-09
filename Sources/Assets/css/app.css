@@ -1,0 +1,50 @@
+#query-container {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 50px;
+  z-index: 2;
+  background: white;
+}
+#query-container>div {
+  display: flex;
+  vertical-align: middle;
+}
+#query-container>div>textarea {
+  flex-grow: 1;
+  min-width: 50%;
+}
+.row {
+  margin-top: 50px;
+}
+table thead {
+  position: sticky;
+  top: 50px;
+  z-index: 1;
+}
+table thead td, table thead th {
+  background: white;
+}
+table tr td {
+  position: relative;
+}
+table tr td .edit-item {
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+table tr:hover td .edit-item {
+  opacity: 1;
+}
+table tbody td span {
+  display: inline-block;
+}
+table tbody td.is-long span {
+  width: 50vw;
+  word-break: break-all;
+}
+table tbody td.is-null {
+  color: gray;
+}

@@ -8,19 +8,16 @@
     <script src="bootstrap.min.js"></script>
     <script src="flash-alert.min.js"></script>
     <script src="api.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="css/app.css" type="text/css">
 </head>
 <body>
-    <form>
+    <form id="query-container">
      <div class="form-small">
-         <div>
-             <textarea id="query" style="width: 50%"></textarea>
-         </div>
+        <textarea id="query" placeholder="Type in your SQL query and click Run Query"></textarea>
         <button type="button" class="btn btn-primary" onclick="executeQuery($('#query').val())">Run query</button>
      </div>
     </form>
-    <div>
-        <button type="button" class="btn btn-primary" onclick="download()">Download database</button>
-    </div>
     <div class="row">
         <div class="col-sm-2">
             <div class="panel panel-default">
@@ -28,6 +25,7 @@
             </div>
             <div id="db-list" class="list-group">
             </div>
+            <button type="button" class="btn btn-primary" onclick="download()">Download database</button>
         </div>
         <div class="col-sm-2">
             <div class="panel panel-default">
@@ -46,6 +44,5 @@
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
 </body>
 </html>
