@@ -101,6 +101,16 @@ function displayTable(data, tablename) {
                 }));
             }
         })
+        if (tablename && data.columns[0] === 'Z_PK') {
+            // This is a CoreData helper
+            $('>td:first-child', rowElem).append($('<a>').addClass('delete-item').text('delete').attr('href', '#').on('click', function(e) {
+                $('#query').val('DELETE FROM '+tablename+' WHERE '+data.columns[0]+' = \''+escapeSqlite(row[0])+'\'');
+                message('SQL updated');
+                e.preventDefault(true);
+                e.stopPropagation(true);
+                return false;
+            }));
+        }
     });
 }
 function escapeSqlite(string) {

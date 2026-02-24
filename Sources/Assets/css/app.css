@@ -41,13 +41,16 @@ table thead td, table thead th {
 table tr td {
   position: relative;
 }
-table tr td .edit-item {
+table tr td .edit-item, table tr td .delete-item {
   opacity: 0;
   position: absolute;
   top: 0px;
   right: 0px;
 }
-table tr:hover td .edit-item {
+table tr td .delete-item {
+  top: 1.5em;
+}
+table tr:hover td .edit-item, table tr:hover td .delete-item {
   opacity: 1;
 }
 table tbody td span {
