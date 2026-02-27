@@ -27,16 +27,16 @@ open class SQLiteViewer {
     
     open var db: DatabaseController!
     
-    func prepareServer(_ server: Server) {
+    func prepareServer(_ server: Server, prefix: String? = nil) {
         server.errorHandler = SQLiteErrorHanler.self
         
         let assetDir = self.assetDir
         let db = self.db!
-        server.get("/") { _ in
+        server.get("/\(prefix ?? "")") { _ in
             return try StaticServer.serveFile(in: assetDir, path: "index.html")
         }
         
-        server.group("api") {
+        server.group("\(prefix ?? "")api") {
             server.group("databases") {
                 server.get("/") { _ in
                     return .success(try db.getList())
@@ -83,14 +83,26 @@ open class SQLiteViewer {
             }
         }
         
-        
-        server.files(in: assetDir)
+        server.group("\(prefix ?? "")") {
+            server.files(in: assetDir)
+        }
     }
     
     open func start(port: UInt16 = 8081, dbDir: String? = nil, assetDir: String? = nil) {
         self.dbDir = dbDir ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         self.assetDir = assetDir ?? Bundle(for: SQLiteViewer.self).resourceURL!.appendingPathComponent("com.biatoms.sqlite-viewer.assets.bundle").path
         try! server.run(port: port)
+    }
+  
+    open func attachEndpoints(
+        to server: Server,
+        prefix: String? = nil,
+        dbDir: String? = nil,
+        assetDir: String? = nil
+    ) {
+        self.dbDir = dbDir ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        self.assetDir = assetDir ?? Bundle(for: SQLiteViewer.self).resourceURL!.appendingPathComponent("com.biatoms.sqlite-viewer.assets.bundle").path
+        self.prepareServer(server, prefix: prefix)
     }
     
     open func stop() {
