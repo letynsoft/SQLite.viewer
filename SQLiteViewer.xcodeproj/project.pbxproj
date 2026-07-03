@@ -38,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		08D936C4D672C7298A32FF1C /* Pods_SQLiteViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SQLiteViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87EF67DD2FF79C43009F547D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		9D07EC9A1F2F3A7E00AE8604 /* bootstrap.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.min.css; sourceTree = "<group>"; };
 		9D07EC9B1F2F3A7E00AE8604 /* favicon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = favicon.ico; sourceTree = "<group>"; };
 		9D07EC9D1F2F3A7E00AE8604 /* bootstrap.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bootstrap.min.js; sourceTree = "<group>"; };
@@ -149,6 +150,7 @@
 				9DEE21FA1F097812001E5F78 /* Products */,
 				CA0652133509BB6B79F8F741 /* Pods */,
 				770C4EB2DADF1C8AB33906CC /* Frameworks */,
+				87EF67DD2FF79C43009F547D /* Package.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,6 +269,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 9DEE21EF1F097812001E5F78;
