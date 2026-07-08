@@ -7,6 +7,7 @@
 //
 
 import SQLite
+import Foundation
 
 open class DatabaseController {
     open var path: String

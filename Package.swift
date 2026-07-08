@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -16,11 +16,17 @@ let package = Package(
     targets: [
         .target(
             name: "SQLiteViewer",
-            dependencies: ["Http.swift", "SQLite.swift"],
+            dependencies: [
+              .product(name: "HttpSwift", package: "http.swift"),
+              .product(name: "SQLite", package: "sqlite.swift")
+            ],
             path: "Sources",
-            exclude: ["SQLite.viewer-Example"]),
+            resources: [.copy("Assets")]),
         .testTarget(
             name: "SQLiteViewerTests",
-            dependencies: ["Http.swift", "SQLite.swift"]),
+            dependencies: [
+              .product(name: "HttpSwift", package: "http.swift"),
+              .product(name: "SQLite", package: "sqlite.swift")
+            ]),
     ]
 )

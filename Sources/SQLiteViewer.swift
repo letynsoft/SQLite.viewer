@@ -8,6 +8,7 @@
 
 import HttpSwift
 import SQLite
+import Foundation
 
 open class SQLiteViewer {
     public static var shared = SQLiteViewer()
@@ -83,9 +84,15 @@ open class SQLiteViewer {
             }
         }
         
-        server.group("\(prefix ?? "")") {
-            server.files(in: assetDir)
-        }
+      server.group("\(prefix ?? "")") {
+          server.files(in: assetDir)
+      }
+      server.group("\(prefix ?? "")js") {
+          server.files(in: "\(assetDir)/js")
+      }
+      server.group("\(prefix ?? "")css") {
+          server.files(in: "\(assetDir)/css")
+      }
     }
     
     open func start(port: UInt16 = 8081, dbDir: String? = nil, assetDir: String? = nil) {
@@ -101,7 +108,9 @@ open class SQLiteViewer {
         assetDir: String? = nil
     ) {
         self.dbDir = dbDir ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        self.assetDir = assetDir ?? Bundle(for: SQLiteViewer.self).resourceURL!.appendingPathComponent("com.biatoms.sqlite-viewer.assets.bundle").path
+        self.assetDir = assetDir
+            ?? Bundle.module.bundlePath.appending("/Assets")
+            ?? Bundle(for: SQLiteViewer.self).resourceURL!.appendingPathComponent("com.biatoms.sqlite-viewer.assets.bundle").path
         self.prepareServer(server, prefix: prefix)
     }
     
